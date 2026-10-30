@@ -1,0 +1,98 @@
+<div class="quiz-list-container">
+
+  <!-- Cabecera -->
+  <div class="page-header">
+    <h1>Quizzes Disponibles</h1>
+    <p class="subtitle">Pon a prueba tus conocimientos en anime y videojuegos</p>
+  </div>
+
+  <!-- Filtros de categoría -->
+  <div class="category-filter">
+    @for (cat of categories; track cat.value) {
+      <button class="filter-btn"
+              [class.active]="selectedCategory === cat.value"
+              (click)="filterByCategory(cat.value)">
+        <mat-icon>{{ cat.icon }}</mat-icon>
+        {{ cat.label }}
+        <span class="count-badge">{{ getCategoryCount(cat.value) }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Spinner de carga -->
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando quizzes...</p>
+    </div>
+  }
+
+  <!-- Error -->
+  @if (error && !loading) {
+    <div class="error-container">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+  }
+
+  <!-- Lista de quizzes -->
+  @if (!loading && !error) {
+    @if (filteredQuizzes.length === 0) {
+      <div class="empty-container">
+        <mat-icon>search_off</mat-icon>
+        <p>No hay quizzes en esta categoría.</p>
+      </div>
+    } @else {
+      <div class="quiz-grid">
+        @for (quiz of filteredQuizzes; track quiz.id) {
+          <div class="quiz-card">
+
+            <!-- Cabecera de la tarjeta -->
+            <div class="card-header" [style.border-top-color]="getDifficultyColor(quiz.dificultad)">
+              <div class="card-category">
+                <span class="category-emoji">{{ getCategoryIcon(quiz.categoria) }}</span>
+                <span class="category-label">{{ getCategoryLabel(quiz.categoria) }}</span>
+              </div>
+              <div class="difficulty-badge" [style.background-color]="getDifficultyColor(quiz.dificultad)">
+                <mat-icon>{{ getDifficultyIcon(quiz.dificultad) }}</mat-icon>
+                {{ getDifficultyLabel(quiz.dificultad) }}
+              </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="card-body">
+              <h3 class="card-title">{{ quiz.titulo }}</h3>
+              <p class="card-desc">{{ quiz.descripcion }}</p>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="card-stats">
+              <div class="stat-item">
+                <mat-icon>quiz</mat-icon>
+                <span>{{ quiz.num_preguntas || '?' }} preguntas</span>
+              </div>
+              <div class="stat-item">
+                <mat-icon>star</mat-icon>
+                <span>{{ getPointsPerQuestion(quiz.dificultad) }} pts/pregunta</span>
+              </div>
+              <div class="stat-item" [matTooltip]="'Puntuación máxima posible'">
+                <mat-icon>emoji_events</mat-icon>
+                <span>Máx. {{ (quiz.num_preguntas || 10) * getPointsPerQuestion(quiz.dificultad) }} pts</span>
+              </div>
+            </div>
+
+            <!-- Botón de juego -->
+            <div class="card-actions">
+              <button class="play-btn" (click)="playQuiz(quiz.id)">
+                <mat-icon>play_arrow</mat-icon>
+                Jugar
+              </button>
+            </div>
+
+          </div>
+        }
+      </div>
+    }
+  }
+
+</div>

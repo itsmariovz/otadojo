@@ -1,0 +1,83 @@
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  /* Hacemos la barra más "gordita" */
+  min-height: 80px !important; 
+  height: 80px !important;
+  
+  /* Un fondo oscuro sólido o con un ligero degradado */
+  background: #1a1a1a !important; 
+  border-bottom: 2px solid #d32f2f; /* Línea roja samurai inferior */
+  padding: 0 24px !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Ajuste del Logo en el Navbar */
+.logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+img.logo-img {
+
+  height: 150px; /* Tamaño ideal para un navbar de 80px */
+  width: auto;
+  margin: 0 auto;
+  margin-top: 20px;;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 5px rgba(211, 47, 47, 0.4));
+
+  &:hover {
+    transform: scale(1.05); /* Efecto sutil al pasar el ratón */
+  }
+}
+
+/* Estilo de los botones de navegación */
+button[mat-button] {
+  height: 50px; /* Botones más grandes para el navbar gordito */
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #eeeeee !important;
+  margin-right: 20px;
+  
+  mat-icon {
+    margin-right: 8px;
+    color: #d32f2f; /* Iconos en rojo para que resalten */
+  }
+}
+
+/* Botón de Registro */
+button[mat-raised-button].mat-accent {
+  background: linear-gradient(45deg, #ff5f6d, #ffc371) !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.active-link {
+  background-color: rgba(211, 47, 47, 0.2) !important; /* Fondo rojizo suave para el activo */
+  border-bottom: 3px solid #d32f2f;
+  border-radius: 0; /* Estilo más recto */
+}
+.spacer {
+  flex: 1 1 auto; /* Esto "rellena" todo el espacio vacío en el centro */
+}
+
+/* Contenedor de botones para asegurar que se agrupen a la derecha */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio uniforme entre botones */
+}
+
+/* Opcional: Si quieres que el botón de registro destaque más a la derecha */
+.register-btn-nav {
+  margin-left: 8px;
+  background: linear-gradient(45deg, #ff5f6d, #ffc371) !important;
+  color: white !important;
+  font-weight: bold;
+}

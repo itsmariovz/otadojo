@@ -1,0 +1,80 @@
+<div class="create-quiz-container">
+  <mat-card class="create-quiz-card">
+    <mat-card-header>
+      <mat-card-title>Crear nuevo Quiz</mat-card-title>
+      <mat-card-subtitle>Rellena los datos del quiz</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
+
+        <!-- Título -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Título del quiz</mat-label>
+          <input matInput formControlName="titulo" placeholder="Ej: Quiz de Naruto">
+          <mat-icon matSuffix>title</mat-icon>
+          @if (quizForm.get('titulo')?.hasError('required') && quizForm.get('titulo')?.touched) {
+            <mat-error>El título es obligatorio</mat-error>
+          }
+          @if (quizForm.get('titulo')?.hasError('minlength')) {
+            <mat-error>Mínimo 3 caracteres</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Descripción -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion" rows="3"
+                    placeholder="Ej: Pon a prueba tus conocimientos sobre Naruto"></textarea>
+          <mat-icon matSuffix>description</mat-icon>
+          @if (quizForm.get('descripcion')?.hasError('required') && quizForm.get('descripcion')?.touched) {
+            <mat-error>La descripción es obligatoria</mat-error>
+          }
+          @if (quizForm.get('descripcion')?.hasError('minlength')) {
+            <mat-error>Mínimo 10 caracteres</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Categoría -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Categoría</mat-label>
+          <mat-select formControlName="categoria">
+            <mat-option value="anime-clasico">⚔️ Anime Clásico</mat-option>
+            <mat-option value="anime-moderno">✨ Anime Moderno</mat-option>
+            <mat-option value="videojuegos">🎮 Videojuegos</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>category</mat-icon>
+          @if (quizForm.get('categoria')?.hasError('required') && quizForm.get('categoria')?.touched) {
+            <mat-error>Selecciona una categoría</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Dificultad -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dificultad</mat-label>
+          <mat-select formControlName="dificultad">
+            <mat-option value="facil">🟢 Fácil (100 pts/pregunta)</mat-option>
+            <mat-option value="medio">🟡 Medio (200 pts/pregunta)</mat-option>
+            <mat-option value="dificil">🔴 Difícil (300 pts/pregunta)</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>signal_cellular_alt</mat-icon>
+          @if (quizForm.get('dificultad')?.hasError('required') && quizForm.get('dificultad')?.touched) {
+            <mat-error>Selecciona una dificultad</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Botones -->
+        <div class="actions">
+          <button mat-stroked-button type="button" routerLink="/admin">
+            <mat-icon>arrow_back</mat-icon> Volver
+          </button>
+          <button mat-raised-button color="primary" type="submit"
+                  [disabled]="quizForm.invalid || loading">
+            {{ loading ? 'Creando...' : 'Crear Quiz' }}
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

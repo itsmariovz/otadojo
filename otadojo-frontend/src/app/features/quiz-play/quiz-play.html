@@ -1,0 +1,87 @@
+<div class="quiz-play-container">
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando quiz...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error-container">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" routerLink="/quizzes">
+        Volver a quizzes
+      </button>
+    </div>
+  }
+
+  @if (!loading && !error && !quizFinished && preguntas.length > 0 && currentQuestion) {
+    <div class="quiz-header">
+      <h2>{{ quiz?.titulo }}</h2>
+
+      <div class="timer" [class.timer-warning]="timeLeft < 30">
+        <mat-icon>timer</mat-icon>
+        <span>{{ getTimerDisplay() }}</span>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <span>Pregunta {{ currentIndex + 1 }} de {{ preguntas.length }}</span>
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    </div>
+
+    <mat-card class="question-card">
+      <mat-card-content>
+        <h3 class="question-text">{{ currentQuestion.texto_pregunta }}</h3>
+
+        <div class="options-container">
+          <button mat-stroked-button
+                  class="option-btn"
+                  [class.selected]="selectedAnswer === 'a'"
+                  (click)="selectAnswer('a')">
+            <span class="option-letter">A</span>
+            {{ currentQuestion.opcion_a }}
+          </button>
+
+          <button mat-stroked-button
+                  class="option-btn"
+                  [class.selected]="selectedAnswer === 'b'"
+                  (click)="selectAnswer('b')">
+            <span class="option-letter">B</span>
+            {{ currentQuestion.opcion_b }}
+          </button>
+
+          <button mat-stroked-button
+                  class="option-btn"
+                  [class.selected]="selectedAnswer === 'c'"
+                  (click)="selectAnswer('c')">
+            <span class="option-letter">C</span>
+            {{ currentQuestion.opcion_c }}
+          </button>
+
+          <button mat-stroked-button
+                  class="option-btn"
+                  [class.selected]="selectedAnswer === 'd'"
+                  (click)="selectAnswer('d')">
+            <span class="option-letter">D</span>
+            {{ currentQuestion.opcion_d }}
+          </button>
+        </div>
+
+        <div class="action-container">
+          <button mat-raised-button color="primary"
+                  [disabled]="!selectedAnswer"
+                  (click)="nextQuestion()">
+            @if (currentIndex >= preguntas.length - 1) {
+              Finalizar Quiz
+            } @else {
+              Siguiente
+            }
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }

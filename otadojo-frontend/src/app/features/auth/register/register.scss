@@ -1,0 +1,100 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh; /* Un poco más de espacio para el formulario de registro */
+  padding: 20px;
+}
+
+.register-card {
+  max-width: 450px; /* Un pelín más ancha para que los campos respiren */
+  width: 100%;
+  padding: 25px;
+  background-color: rgba(25, 25, 25, 0.95) !important; /* Fondo oscuro premium */
+  border-left: 5px solid #d32f2f; /* La "línea de katana" roja */
+  border-radius: 4px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+
+  mat-card-header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  mat-card-title {
+    width: 100%;
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-card-subtitle {
+    text-align: center;
+    color: #b0b0b0;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+  }
+}
+
+img.logo-img {
+  display: block;
+  margin: 0 auto;
+  height: 160px; /* Tamaño optimizado para registro */
+  width: auto;
+  filter: drop-shadow(0 0 10px rgba(211, 47, 47, 0.2));
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* El botón con el estilo del Quiz (Naranja/Rojizo) */
+.register-btn {
+  margin-top: 20px;
+  height: 52px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 4px !important;
+  
+  /* Degradado similar a tu captura del Quiz */
+  background: linear-gradient(45deg, #ff5f6d, #ffc371) !important;
+  color: white !important;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(255, 95, 109, 0.5);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background: #444 !important;
+    color: #888 !important;
+  }
+}
+
+/* Enlace inferior */
+mat-card-actions {
+  justify-content: center !important;
+  
+  p {
+    margin: 15px 0 0 0;
+    font-size: 14px;
+    color: #ccc;
+
+    a {
+      color: #ff5f6d; /* Rojo suave para el enlace */
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #ffc371;
+        text-decoration: underline;
+      }
+    }
+  }
+}

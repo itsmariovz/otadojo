@@ -1,0 +1,149 @@
+<div class="profile-container">
+  
+  <!-- ERROR: No hay usuario -->
+  @if (error) {
+    <mat-card class="error-card">
+      <mat-icon>error</mat-icon>
+      <h2>Error</h2>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="logout()">
+        Cerrar Sesión y Volver a Intentar
+      </button>
+    </mat-card>
+  }
+
+  <!-- LOADING -->
+  @if (loading && !error) {
+    <div class="loading-container">
+      <mat-spinner diameter="60"></mat-spinner>
+      <p>Cargando perfil...</p>
+    </div>
+  }
+
+  <!-- CONTENIDO DEL PERFIL -->
+  @if (!loading && !error && user) {
+    
+    <!-- Tarjeta de Usuario -->
+    <mat-card class="user-card">
+      <div class="user-header">
+        <mat-icon class="avatar-icon">account_circle</mat-icon>
+        <div class="user-info">
+          <h1>{{ user.username }}</h1>
+          <p class="email">{{ user.email }}</p>
+          <span class="role-badge" [class.admin]="user.rol === 'admin'">
+            {{ user.rol === 'admin' ? '⭐ Administrador' : '🎮 Jugador' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Estadísticas -->
+      @if (estadisticas) {
+        <div class="stats">
+          <div class="stat">
+            <mat-icon>emoji_events</mat-icon>
+            <span class="stat-number">{{ estadisticas.puntos_totales || 0 }}</span>
+            <span class="stat-label">Puntos Totales</span>
+          </div>
+          
+          <div class="stat">
+            <mat-icon>quiz</mat-icon>
+            <span class="stat-number">{{ estadisticas.quizzes_jugados || 0 }}</span>
+            <span class="stat-label">Quizzes Jugados</span>
+          </div>
+          
+          <div class="stat">
+            <mat-icon>star</mat-icon>
+            <span class="stat-number">{{ estadisticas.mejor_puntuacion || 0 }}</span>
+            <span class="stat-label">Mejor Puntuación</span>
+          </div>
+          
+          <div class="stat">
+            <mat-icon>show_chart</mat-icon>
+            <span class="stat-number">{{ (estadisticas.promedio_puntos || 0) | number:'1.0-0' }}</span>
+            <span class="stat-label">Promedio</span>
+          </div>
+        </div>
+      } @else {
+        <div class="no-stats">
+          <p>No hay estadísticas disponibles</p>
+        </div>
+      }
+    </mat-card>
+
+    <!-- Historial de Partidas -->
+    <div class="history-section">
+      <h2>
+        <mat-icon>history</mat-icon>
+        Historial de Partidas
+      </h2>
+
+      @if (historial.length === 0) {
+        <mat-card class="empty-card">
+          <mat-icon class="empty-icon">sports_esports</mat-icon>
+          <h3>Aún no has jugado ningún quiz</h3>
+          <p>¡Es hora de demostrar tus conocimientos de anime!</p>
+          <button mat-raised-button color="primary" routerLink="/quizzes">
+            <mat-icon>play_arrow</mat-icon>
+            Jugar Ahora
+          </button>
+        </mat-card>
+      } @else {
+        <mat-card class="history-card">
+          <div class="table-container">
+            <table mat-table [dataSource]="historial" class="history-table">
+
+              <!-- Quiz -->
+              <ng-container matColumnDef="quiz_titulo">
+                <th mat-header-cell *matHeaderCellDef> Quiz </th>
+                <td mat-cell *matCellDef="let row">
+                  <strong>{{ row.quiz_titulo }}</strong>
+                </td>
+              </ng-container>
+
+              <!-- Dificultad -->
+              <ng-container matColumnDef="dificultad">
+                <th mat-header-cell *matHeaderCellDef> Dificultad </th>
+                <td mat-cell *matCellDef="let row">
+                  <span class="difficulty-badge" [class]="row.dificultad">
+                    {{ getDifficultyLabel(row.dificultad) }}
+                  </span>
+                </td>
+              </ng-container>
+
+              <!-- Puntos -->
+              <ng-container matColumnDef="puntos_obtenidos">
+                <th mat-header-cell *matHeaderCellDef> Puntos </th>
+                <td mat-cell *matCellDef="let row">
+                  <strong class="points">{{ row.puntos_obtenidos }}</strong>
+                </td>
+              </ng-container>
+
+              <!-- Aciertos -->
+              <ng-container matColumnDef="respuestas_correctas">
+                <th mat-header-cell *matHeaderCellDef> Aciertos </th>
+                <td mat-cell *matCellDef="let row">
+                  <span class="score">
+                    {{ row.respuestas_correctas }}/{{ row.total_preguntas }}
+                  </span>
+                </td>
+              </ng-container>
+
+              <!-- Fecha -->
+              <ng-container matColumnDef="completado_at">
+                <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                <td mat-cell *matCellDef="let row" class="date-cell">
+                  {{ formatDate(row.completado_at) }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-card>
+      }
+    </div>
+
+  }
+
+</div>

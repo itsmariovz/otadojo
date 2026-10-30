@@ -1,0 +1,71 @@
+<div class="rankings-container">
+  <h1>🏆 Rankings Globales</h1>
+  <p class="subtitle">Los mejores jugadores de OtaDojo</p>
+
+  @if (loading) {
+    <div class="loading">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando rankings...</p>
+    </div>
+  }
+
+  @if (error && !loading) {
+    <div class="error">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+  }
+
+  @if (!loading && !error && rankings.length > 0) {
+    <mat-card class="rankings-card">
+      <table mat-table [dataSource]="rankings" class="rankings-table">
+
+        <!-- Posición -->
+        <ng-container matColumnDef="posicion">
+          <th mat-header-cell *matHeaderCellDef> # </th>
+          <td mat-cell *matCellDef="let element; let i = index" class="position-cell">
+            <span class="medal" [class.top-three]="i < 3">{{ getMedal(i) }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Jugador -->
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef> Jugador </th>
+          <td mat-cell *matCellDef="let element" [class.current-user]="isCurrentUser(element.username)">
+            <strong>{{ element.username }}</strong>
+            @if (isCurrentUser(element.username)) {
+              <span class="you-badge">TÚ</span>
+            }
+          </td>
+        </ng-container>
+
+        <!-- Puntos -->
+        <ng-container matColumnDef="puntos_totales">
+          <th mat-header-cell *matHeaderCellDef> Puntos </th>
+          <td mat-cell *matCellDef="let element">
+            <strong class="points">{{ element.puntos_totales }}</strong>
+          </td>
+        </ng-container>
+
+        <!-- Quizzes -->
+        <ng-container matColumnDef="quizzes_jugados">
+          <th mat-header-cell *matHeaderCellDef> Quizzes </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.quizzes_jugados }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+            [class.top-row]="rankings.indexOf(row) < 3"></tr>
+      </table>
+    </mat-card>
+  }
+
+  @if (!loading && !error && rankings.length === 0) {
+    <div class="no-rankings">
+      <mat-icon>emoji_events</mat-icon>
+      <p>Aún no hay rankings. ¡Sé el primero!</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,78 @@
+<div class="results-container">
+  
+  <!-- Error -->
+  <mat-card *ngIf="error" class="error-card">
+    <mat-card-header>
+      <mat-card-title>Error</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>No se pudieron cargar los resultados.</p>
+      <button mat-raised-button color="primary" routerLink="/quizzes">
+        Volver a Quizzes
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Resultados -->
+  <mat-card *ngIf="!error && resultado" class="results-card">
+    <mat-card-header>
+      <mat-card-title>
+        <span class="emoji">{{ getEmoji() }}</span>
+        ¡Quiz Completado!
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Círculo de puntuación -->
+      <div class="score-circle" [style.border-color]="getColor()">
+        <div class="score-number" [style.color]="getColor()">
+          {{ puntos }}
+        </div>
+        <div class="score-label">puntos</div>
+      </div>
+
+      <!-- Mensaje -->
+      <div class="message" [style.color]="getColor()">
+        {{ getMessage() }}
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="stats">
+        <div class="stat">
+          <mat-icon>check_circle</mat-icon>
+          <div class="stat-value">{{ correctas }}</div>
+          <div class="stat-label">Correctas</div>
+        </div>
+
+        <div class="stat">
+          <mat-icon>quiz</mat-icon>
+          <div class="stat-value">{{ total }}</div>
+          <div class="stat-label">Total</div>
+        </div>
+
+        <div class="stat">
+          <mat-icon>percent</mat-icon>
+          <div class="stat-value">{{ porcentaje }}%</div>
+          <div class="stat-label">Acierto</div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <!-- Botones -->
+    <mat-card-actions>
+      <button mat-raised-button color="primary" routerLink="/quizzes">
+        <mat-icon>replay</mat-icon>
+        Jugar Otro Quiz
+      </button>
+      <button mat-button routerLink="/rankings">
+        <mat-icon>emoji_events</mat-icon>
+        Ver Rankings
+      </button>
+      <button mat-button routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        Mi Perfil
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

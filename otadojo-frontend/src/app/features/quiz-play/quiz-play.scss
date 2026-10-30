@@ -1,0 +1,139 @@
+.quiz-play-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .timer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+
+    &.timer-warning {
+      color: #f44336;
+      animation: pulse 1s infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.progress-section {
+  margin-bottom: 20px;
+
+  span {
+    display: block;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+.question-card {
+  padding: 16px;
+
+  .question-text {
+    font-size: 20px;
+    margin-bottom: 24px;
+    line-height: 1.4;
+    text-align: center;
+  }
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+
+  .option-btn {
+    text-align: left;
+    padding: 16px 20px;
+    font-size: 16px;
+    height: auto;
+    white-space: normal;
+    line-height: 1.4;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: #3f51b5;
+      background-color: rgba(63, 81, 181, 0.05);
+    }
+
+    &.selected {
+      border-color: #3f51b5;
+      background-color: rgba(63, 81, 181, 0.1);
+      font-weight: 500;
+    }
+
+    .option-letter {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-radius: 50%;
+      background-color: #e0e0e0;
+      margin-right: 12px;
+      font-weight: bold;
+    }
+
+    &.selected .option-letter {
+      background-color: #3f51b5;
+      color: white;
+    }
+  }
+}
+
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    height: 48px;
+    font-size: 16px;
+    padding: 0 24px;
+  }
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 16px;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #999;
+  }
+
+  p {
+    color: #666;
+    font-size: 16px;
+  }
+}

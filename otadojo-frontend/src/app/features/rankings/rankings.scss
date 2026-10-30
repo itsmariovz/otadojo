@@ -1,0 +1,81 @@
+.rankings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+}
+
+.rankings-card {
+  overflow: hidden;
+}
+
+.rankings-table {
+  width: 100%;
+
+  .medal {
+    font-size: 20px;
+  }
+
+  .current-user {
+    color: #3f51b5;
+    font-weight: bold;
+  }
+
+  .you-badge {
+    font-size: 12px;
+    color: #3f51b5;
+  }
+
+  .top-three {
+    background-color: rgba(255, 215, 0, 0.05);
+  }
+
+  .current-user-row {
+    background-color: rgba(63, 81, 181, 0.08);
+  }
+
+  th {
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+  }
+
+  td {
+    font-size: 15px;
+  }
+}
+
+.loading-container,
+.error-container,
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 16px;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #999;
+  }
+
+  p {
+    color: #666;
+    font-size: 16px;
+  }
+}

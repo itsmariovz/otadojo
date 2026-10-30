@@ -1,0 +1,43 @@
+<mat-toolbar color="primary">
+  <!-- Logo y nombre -->
+  <a routerLink="/quizzes" class="logo"><img src="assets/icono.png" alt="Logo OtaDojo" class="logo-img"> </a>
+
+  <!-- Espaciador -->
+  <span class="spacer"></span>
+
+  <!-- Links de navegación -->
+  @if (authService.isLoggedIn()) {
+    <button mat-button routerLink="/quizzes" routerLinkActive="active-link">
+      <mat-icon>quiz</mat-icon> Quizzes
+    </button>
+    <button mat-button routerLink="/rankings" routerLinkActive="active-link">
+      <mat-icon>leaderboard</mat-icon> Rankings
+    </button>
+
+    <!-- Menú de usuario -->
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+      {{ authService.getCurrentUser()?.username }}
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon> Mi Perfil
+      </button>
+      @if (authService.isAdmin()) {
+        <button mat-menu-item routerLink="/admin">
+          <mat-icon>admin_panel_settings</mat-icon> Admin Panel
+        </button>
+      }
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon> Cerrar Sesión
+      </button>
+    </mat-menu>
+  } @else {
+    <button mat-button routerLink="/login" routerLinkActive="active-link">
+      Iniciar Sesión
+    </button>
+    <button mat-raised-button color="accent" routerLink="/register">
+      Registrarse
+    </button>
+  }
+</mat-toolbar>

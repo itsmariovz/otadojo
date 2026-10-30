@@ -1,0 +1,33 @@
+.create-quiz-container {
+  display: flex;
+  justify-content: center;
+  padding: 30px 20px;
+}
+
+.create-quiz-card {
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+
+  mat-card-title {
+    font-size: 24px;
+  }
+
+  mat-card-subtitle {
+    margin-bottom: 20px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+
+  button {
+    height: 44px;
+  }
+}

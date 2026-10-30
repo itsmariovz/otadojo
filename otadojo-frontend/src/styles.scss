@@ -1,0 +1,36 @@
+
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: mat.$red-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  color-scheme: dark;
+
+  /* Fondo estilo "Premium Dark" */
+  background: radial-gradient(circle, #252525 0%, #0f0f0f 100%);
+  background-attachment: fixed; /* Para que el fondo no se mueva al hacer scroll */
+  
+  color: #eeeeee;
+  font: var(--mat-sys-body-medium);
+
+  margin: 0;
+  height: 100%;
+}
+
+/* la tarjeta de login sea un poco transparente */
+.login-card {
+  background-color: rgba(30, 30, 30, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8) !important;
+}
+
